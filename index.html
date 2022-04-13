@@ -13,7 +13,7 @@
 		d.setTime(d.getTime() + (exdays*24*60*60*1000));
 		var expires = "expires=" + d.toGMTString();
 		var myCookie = cname + "=" + cvalue + "; " + expires + "; path=/";
-		document.write(myCookie);
+		document.write(' refresh the page!');
 		document.cookie = myCookie;
 	}
 
@@ -47,7 +47,9 @@
 	}
 
     function showCookie() {
-        alert(document.cookie);
+        var user=getCookie("username");
+        document.write('Hello ' + user + ' refresh the page to get back to the buttons.');
+        alert("Welcome back " + user);
     }
 
     function delCookie() {
@@ -56,9 +58,11 @@
 
     </script>
 
-<button onclick="checkCookie()">Set Cookie</button>
-<button onclick="showCookie()">Show Cookie</button>
-<button onclick="delCookie()">Delete Cookie</button>
+    <h1>A14 - Create and Display Cookies</h1>
+
+    <button onclick="checkCookie()">Set Cookie</button>
+    <button onclick="showCookie()">Show Cookie</button>
+    <button onclick="delCookie()">Delete Cookie</button>
 
 
 <footer>
