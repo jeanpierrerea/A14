@@ -1,55 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>A14</title>
-        <link rel="stylesheet" href="style.css">
     </head>
 
 
     <!-- Referenced for the Cookie: https://www.w3schools.com/js/js_cookies.asp -->
     <script>
     
-    function setCookie(cname, cvalue, exdays) {
-        const d = new Date();
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        let expires = "expires="+d.toESTString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	function setCookie(cname,cvalue,exdays) {
+		var d = new Date();
+		d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		var expires = "expires=" + d.toGMTString();
+		var myCookie = cname + "=" + cvalue + "; " + expires + "; path=/";
+		document.write(myCookie);
+		document.cookie = myCookie;
+	}
+
+	function getCookie(cname) {
+		var name = cname + "=";
+		var decodedCookie = decodeURIComponent(document.cookie);
+		var ca = decodedCookie.split(';');
+		for(var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+
+	function checkCookie() {
+		var user=getCookie("username");
+		document.write('Hello ' + user);
+		if (user != "") {
+			alert("Welcome back " + user);
+		} else {
+			user = prompt("Please enter your name:","");
+			if (user != "" && user != null) {
+				setCookie("username", user, 30);
+			}
+		}
+	}
+
+    function showCookie() {
+        alert(document.cookie);
     }
 
-    function getCookie(cname) {
-        let name = cname + "=";
-        let ca = document.cookie.split(';');
-        for(let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    function checkCookie() {
-        let user = getCookie("username");
-        if (user != "") {
-            alert("Welcome again " + user);
-            document.write('Hello ' + user + ', my name is Jeanpierre Rea.')
-        } else {
-            user = prompt("Enter your username:", "");
-            if (user != "" && user != null) {
-            setCookie("username", user, 365);
-            }
-        }
+    function delCookie() {
+        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
 
     </script>
 
-<body onload="checkCookie()"></body>
+<button onclick="checkCookie()">Set Cookie</button>
+<button onclick="showCookie()">Show Cookie</button>
+<button onclick="delCookie()">Delete Cookie</button>
+
 
 <footer>
     <p>&copy; 2022, Jeanpierre Rea. April 13 2022</p>
